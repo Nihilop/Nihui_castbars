@@ -1,0 +1,20 @@
+## Interface: 110200
+## Title: |cff00ff00Nihui|r |cffffffffCastBars|r
+## Author: nihil (based on rnxmUI)
+## Notes: Barres d'incantation personnalisées avec mode debug - Position, masques, interruptions
+## Version: 1.0
+## IconTexture: Interface/AddOns/Nihui_cb/textures/icon.tga
+## SavedVariables: NihuiCastBarsDB
+
+# Libraries
+libs\libs.xml
+
+# Core files
+init.lua
+config.lua
+
+# Modules
+modules\castbars.lua
+
+# GUI
+gui\gui.lua
