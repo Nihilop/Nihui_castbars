@@ -2,7 +2,7 @@
 ## Title: |cff00ff00Nihui|r |cffffffffCastBars|r
 ## Author: nihil (based on rnxmUI)
 ## Notes: Barres d'incantation personnalisées avec mode debug - Position, masques, interruptions
-## Version: 1.0
+## Version: 1.1
 ## IconTexture: Interface/AddOns/Nihui_cb/textures/icon.tga
 ## SavedVariables: NihuiCastBarsDB
 
