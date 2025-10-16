@@ -1166,8 +1166,37 @@ function CastBars.SetupCastBarEvents(castBar)
     local function OnUpdate(self, elapsed)
         local castStartTime = self.castStartTime
         local castEndTime = self.castEndTime
-        if not castStartTime or not castEndTime or
-           castStartTime == 0 or castEndTime == 0 then
+
+        -- Protection against lost timing values - restore from game API if needed
+        if (not castStartTime or not castEndTime or castStartTime == 0 or castEndTime == 0) and self:IsShown() then
+            -- Check if there's actually a cast/channel in progress
+            local name, text, texture, startTimeMS, endTimeMS, isTradeSkill, castID, notInterruptible = UnitCastingInfo(self.unit)
+            if name and startTimeMS and endTimeMS then
+                -- Restore lost cast timing
+                self.castStartTime = startTimeMS
+                self.castEndTime = endTimeMS
+                self.isChanneling = false
+                castStartTime = startTimeMS
+                castEndTime = endTimeMS
+            else
+                -- Check for channel
+                name, text, texture, startTimeMS, endTimeMS, isTradeSkill, notInterruptible = UnitChannelInfo(self.unit)
+                if name and startTimeMS and endTimeMS then
+                    -- Restore lost channel timing
+                    self.castStartTime = startTimeMS
+                    self.castEndTime = endTimeMS
+                    self.isChanneling = true
+                    castStartTime = startTimeMS
+                    castEndTime = endTimeMS
+                else
+                    -- No active cast, stop updating
+                    return
+                end
+            end
+        end
+
+        -- If still no valid times, exit
+        if not castStartTime or not castEndTime or castStartTime == 0 or castEndTime == 0 then
             return
         end
 
