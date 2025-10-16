@@ -552,9 +552,10 @@ function CastBars.AddCastBarMethods(castBar)
             end
         end
 
-        -- Icon background logic
+        -- Icon background logic - only show if icon is valid
         if self.iconBackground then
-            if (castType == "cast" or castType == "channel") and not isInterruptible then
+            local hasValidIcon = self.spellIcon and self.spellIcon ~= "" and self.spellIcon ~= 0
+            if hasValidIcon and (castType == "cast" or castType == "channel") and not isInterruptible then
                 self.iconBackground:Show()
             else
                 self.iconBackground:Hide()
@@ -596,8 +597,18 @@ function CastBars.AddCastBarMethods(castBar)
             self.text:SetText(name)
         end
 
+        -- Check if icon is valid before showing it
+        local hasValidIcon = icon and icon ~= "" and icon ~= 0
         if self.icon then
-            self.icon:SetTexture(icon)
+            if hasValidIcon then
+                self.icon:SetTexture(icon)
+                self.icon:Show()
+                if self.iconBorder then self.iconBorder:Show() end
+            else
+                self.icon:Hide()
+                if self.iconBorder then self.iconBorder:Hide() end
+                if self.iconBackground then self.iconBackground:Hide() end
+            end
         end
 
         if self.spark then
@@ -642,8 +653,18 @@ function CastBars.AddCastBarMethods(castBar)
             self.text:SetText(name)
         end
 
+        -- Check if icon is valid before showing it
+        local hasValidIcon = texture and texture ~= "" and texture ~= 0
         if self.icon then
-            self.icon:SetTexture(self.spellIcon)
+            if hasValidIcon then
+                self.icon:SetTexture(texture)
+                self.icon:Show()
+                if self.iconBorder then self.iconBorder:Show() end
+            else
+                self.icon:Hide()
+                if self.iconBorder then self.iconBorder:Hide() end
+                if self.iconBackground then self.iconBackground:Hide() end
+            end
         end
 
         if self.spark then
@@ -769,9 +790,18 @@ function CastBars.AddCastBarMethods(castBar)
             self.interruptHolder.text:SetText("Interrupted")
         end
 
-        -- Set interrupt icon
-        if self.interruptHolder.icon and spellIcon then
-            self.interruptHolder.icon:SetTexture(spellIcon)
+        -- Set interrupt icon - check if valid before showing
+        local hasValidIcon = spellIcon and spellIcon ~= "" and spellIcon ~= 0
+        if self.interruptHolder.icon then
+            if hasValidIcon then
+                self.interruptHolder.icon:SetTexture(spellIcon)
+                self.interruptHolder.icon:Show()
+                if self.interruptHolder.iconBorder then self.interruptHolder.iconBorder:Show() end
+            else
+                self.interruptHolder.icon:Hide()
+                if self.interruptHolder.iconBorder then self.interruptHolder.iconBorder:Hide() end
+                if self.interruptHolder.iconBackground then self.interruptHolder.iconBackground:Hide() end
+            end
         end
 
         -- Hide main castbar
