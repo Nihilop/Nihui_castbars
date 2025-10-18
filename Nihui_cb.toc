@@ -1,9 +1,10 @@
 ## Interface: 110205
 ## Title: |cff00ff00Nihui|r |cffffffffCastBars|r
+## Category: NihUI
 ## Author: nihil (based on rnxmUI)
 ## Notes: Barres d'incantation personnalisées avec mode debug - Position, masques, interruptions
 ## Version: 1.0.0
-## IconTexture: Interface/AddOns/Nihui_cb/textures/icon.tga
+## IconAtlas: GarrMission_MissionIcon-Combat
 ## SavedVariables: NihuiCastBarsDB
 
 # Libraries
